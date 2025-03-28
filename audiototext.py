@@ -22,8 +22,12 @@ def transcribe_audio(audio_file, model_size):
         # Confirmation messages
         print("Transcription successful!")
         print(f"Transcription saved to {output_file}")
+
+        return output_file  # ✅ Return the transcription file path
+
     except Exception as e:
         print("An error occurred during transcription:", e)
+        return None  # ✅ Return None on error
 
 if __name__ == "__main__":
     print("Welcome to the Whisper Transcription Tool!")
@@ -47,4 +51,9 @@ if __name__ == "__main__":
     model_size = model_sizes.get(model_choice, "base")  # Default to "base" if input is invalid
 
     # Call the transcription function
-    transcribe_audio(audio_file, model_size)
+    transcription_path = transcribe_audio(audio_file, model_size)
+
+    if transcription_path:
+        print(f"Transcription file created: {transcription_path}")
+    else:
+        print("Transcription failed.")
