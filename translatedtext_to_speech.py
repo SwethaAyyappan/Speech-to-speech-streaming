@@ -1,21 +1,20 @@
 import edge_tts
 from langdetect import detect
-import asyncio
 import os
 
-async def text_to_speech_edgetts(input_file_path):
+async def text_to_speech_edgetts(input_file_path, output_file_path):
     try:
         # Read the text file
         with open(input_file_path, "r", encoding="utf-8") as f:
-            text = f.read()
+            text = f.read().strip()
 
-        if not text.strip():
-            print("The input file is empty. Please provide valid content.")
+        if not text:
+            print("⚠️ The input file is empty. Please provide valid content.")
             return
 
         # Detect language using langdetect
         detected_language = detect(text)
-        print(f"Detected language code: {detected_language}")
+        print(f"🌍 Detected language: {detected_language}")
 
         # Map detected language to an EdgeTTS voice
         language_voice_map = {
@@ -27,28 +26,19 @@ async def text_to_speech_edgetts(input_file_path):
         }
 
         voice = language_voice_map.get(detected_language, "en-US-JennyNeural")  # Default to English
-        print(f"Using voice: {voice}")
+        print(f"🗣 Using voice: {voice}")
 
         # Create EdgeTTS object
         communicator = edge_tts.Communicate(text, voice)
 
-        # Define the output file path
-        output_file_path = input_file_path.replace(".txt", "_speech.mp3")
-
         # Generate speech and save it as an MP3 file
-        print("Generating speech...")
+        print("🔊 Generating speech...")
         await communicator.save(output_file_path)
-        print(f"Speech generation successful! Audio saved to: {output_file_path}")
+        print(f"✅ Speech saved: {output_file_path}")
+
+        # Ensure the file was created
+        if not os.path.exists(output_file_path):
+            print(f"❌ Error: Expected audio file {output_file_path} was not created!")
 
     except Exception as e:
-        print("An error occurred during text-to-speech conversion:", e)
-
-def run_text_to_speech():
-    input_file_path = input("Enter the path of the translated text file: ").strip()
-    if os.path.isfile(input_file_path):
-        asyncio.run(text_to_speech_edgetts(input_file_path))
-    else:
-        print("The specified file does not exist. Please check the path and try again.")
-
-if __name__ == "__main__":
-    run_text_to_speech()
+        print(f"❌ An error occurred during text-to-speech conversion: {e}")
