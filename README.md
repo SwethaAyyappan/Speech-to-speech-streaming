@@ -35,11 +35,7 @@ Clone this repository to your local machine:
 3. Install the required dependencies from `requirements.txt`:
    ```bash
    pip install -r requirements.txt
-
-
-
-
-
+   
 # How to Use  
 
 ## Command Line Usage  
@@ -63,14 +59,7 @@ python main_app.py
 3. Select the target language and follow the steps in the UI to complete the translation process.
 
 
-## Dependencies
-Make sure to install all the necessary dependencies listed in requirements.txt before running the project. Use the following command:
 
-```bash
-pip install -r requirements.txt
-```
-
-This ensures that all required libraries and packages are installed for smooth execution of the pipeline.
 
 
 
