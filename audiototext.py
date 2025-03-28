@@ -23,11 +23,11 @@ def transcribe_audio(audio_file, model_size):
         print("Transcription successful!")
         print(f"Transcription saved to {output_file}")
 
-        return output_file  # ✅ Return the transcription file path
+        return output_file  # Return the transcription file path
 
     except Exception as e:
         print("An error occurred during transcription:", e)
-        return None  # ✅ Return None on error
+        return None  # Return None on error
 
 if __name__ == "__main__":
     print("Welcome to the Whisper Transcription Tool!")
